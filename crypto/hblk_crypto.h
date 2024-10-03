@@ -8,6 +8,7 @@
 
 #include <errno.h>
 #include <sys/stat.h>
+#include <string.h>
 
 #define EC_PUB_LEN 65
 #define SIG_MAX_LEN 72
