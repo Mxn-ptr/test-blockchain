@@ -14,29 +14,17 @@
 uint8_t *ec_sign(EC_KEY const *key, uint8_t const *msg,
 				size_t msglen, sig_t *sig)
 {
-	unsigned char hash[SHA256_DIGEST_LENGTH];
-	unsigned int sig_len;
+	uint32_t signature_len = 0;
 
 	if (!key || !msg || !sig)
 		return (NULL);
 
-	if (!SHA256(msg, msglen, hash))
+	memset(sig->sig, 0, sizeof(sig->sig));
+
+	if (ECDSA_sign(0, msg, msglen, sig->sig, &signature_len, (EC_KEY *)key) != 1)
 		return (NULL);
 
-	sig->len = ECDSA_size(key);
-	sig->sig = calloc(sig->len, sizeof(uint8_t));
-	if (!sig->sig)
-		return (NULL);
-
-	if (ECDSA_sign(0, hash, SHA256_DIGEST_LENGTH, sig->sig,
-					&sig_len, (EC_KEY *)key) != 1)
-	{
-		free(sig->sig);
-		sig->sig = NULL;
-		return (NULL);
-	}
-
-	sig->len = sig_len;
+	sig->len = signature_len;
 
 	return (sig->sig);
 }

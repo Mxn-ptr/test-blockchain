@@ -10,18 +10,19 @@
 #include <sys/stat.h>
 
 #define EC_PUB_LEN 65
+#define SIG_MAX_LEN 72
 #define EC_CURVE NID_secp256k1
 #define PUB_FILENAME "key_pub.pem"
 #define PRI_FILENAME "key.pem"
 
 /**
- * struct sig_s - struct sig
+ * struct sig - struct sig
  * @sig: pointer
  * @len: length
 */
 typedef struct sig_s
 {
-	uint8_t *sig;
+	uint8_t sig[SIG_MAX_LEN];
 	size_t len;
 } sig_t;
 
