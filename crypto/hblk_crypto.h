@@ -17,7 +17,7 @@
 #define PRI_FILENAME "key.pem"
 
 /**
- * struct sig - struct sig
+ * struct sig_s - struct sig
  * @sig: pointer
  * @len: length
 */
