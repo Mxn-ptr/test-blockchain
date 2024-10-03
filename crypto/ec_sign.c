@@ -28,7 +28,8 @@ uint8_t *ec_sign(EC_KEY const *key, uint8_t const *msg,
 	if (!sig->sig)
 		return (NULL);
 
-	if (ECDSA_sign(0, hash, SHA256_DIGEST_LENGTH, sig->sig, &sig_len, key) != 1)
+	if (ECDSA_sign(0, hash, SHA256_DIGEST_LENGTH, sig->sig,
+					&sig_len, (EC_KEY *)key) != 1)
 	{
 		free(sig->sig);
 		sig->sig = NULL;
